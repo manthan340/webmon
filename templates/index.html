@@ -1,0 +1,107 @@
+
+{{ template "header.html" .}}
+
+{{ if .website_details }}
+<div class="row">
+  <h2>Edit Website</h2>
+</div>
+<form method="POST" action="/updateWebsite" class="form-horizontal">
+  <input type="hidden" name="id" value="{{.website_details.ID}}">
+  <div class="form-group">
+  <label class="control-label col-sm-2" for="readable_name">Readable Name:</label>
+  <input class="col-sm-10" type="text" class="form-control" id="readable_name" name="readable_name" value="{{.website_details.ReadableName}}">
+  </div>
+  <div class="form-group">
+  <label class="control-label col-sm-2" for="url">url:</label>
+  <input class="col-sm-10" type="url" class="form-control" id="url" name="url" readonly="readonly" value="{{.website_details.Url}}">
+  </div>
+  <div class="form-group">
+  <label class="control-label col-sm-2" for="monitor_duration">Monitor Duration:</label>
+  <input class="col-sm-10" type="text" class="form-control" id="monitor_duration" name="monitor_duration" value="{{.website_details.MonitorDuration}}">
+  </div>
+  <div class="form-group">
+  <label class="control-label col-sm-2" for="http_status_check">Status Check:</label>
+  <input class="col-sm-10" type="text" class="form-control" id="http_status_check" name="http_status_check" value="{{.website_details.HttpStatusCheck}}">
+  </div>
+  <div class="form-group">
+  <label class="control-label col-sm-2" for="http_response_contains">Response should contain:</label>
+  <input class="col-sm-10" type="text" class="form-control" id="http_response_contains" name="http_response_contains" value="{{.website_details.HttpResponseContains}}">
+  </div>
+  <div class="form-group center"><button type="submit" class="btn btn-default">Submit</button></div>
+</form>
+{{ else }}
+
+<div class="row">
+  <h2>Add Website</h2>
+</div>
+<div class="row">
+  <form method="POST" action="" class="form-horizontal">
+    <div class="form-group">
+  	<label class="control-label col-sm-2" for="readable_name">Readable Name:</label>
+  	<input class="col-sm-10" type="text" class="form-control" id="readable_name" name="readable_name" value="">
+    </div>
+    <div class="form-group">
+  	<label class="control-label col-sm-2" for="url">url:</label>
+  	<input class="col-sm-10" type="url" class="form-control" id="url" name="url">
+    </div>
+    <div class="form-group">
+  	<label class="control-label col-sm-2" for="monitor_duration">Monitor Duration:</label>
+  	<input class="col-sm-10" type="text" class="form-control" id="monitor_duration" name="monitor_duration">
+    </div>
+    <div class="form-group">
+  	<label class="control-label col-sm-2" for="http_status_check">Status Check:</label>
+  	<input class="col-sm-10" type="text" class="form-control" id="http_status_check" name="http_status_check">
+    </div>
+    <div class="form-group">
+  	<label class="control-label col-sm-2" for="http_response_contains">Response should contain:</label>
+  	<input class="col-sm-10" type="text" class="form-control" id="http_response_contains" name="http_response_contains">
+    </div>
+    <div class="form-group center"><button type="submit" class="btn btn-default center">Submit</button></div>
+  </form>
+</div>
+<div class="row">
+  <h2>All Websites</h2>
+</div>
+<div class="row">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>URL</th>
+        <th>Monitor Duration</th>
+        <th>Status Check</th>
+        <th>Response Check</th>
+        <th>Last Checked Time</th>
+        <th>Last Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+{{range .websites }}
+      <tr>
+        <td><a href="/logs/{{.ID}}">{{.ReadableName}}</a></td>
+        <td>{{.Url}}</td>
+        <td>{{.MonitorDuration}}</td>
+        <td>{{.HttpStatusCheck}}</td>
+        <td>{{.HttpResponseContains}}</td>
+        <td>{{ if .LastLogTime }} {{.LastLogTime}} {{end}}</td>
+        <td>
+            {{ if .LastAlertStatus }}
+              {{ if eq .LastAlertStatus true }}
+                <button type="button" class="btn btn-sm btn-danger">Alert</button>
+              {{ else }}
+                <button type="button" class="btn btn-sm btn-success">All ok</button>
+              {{ end }}
+            {{ end }}
+        </td>
+        <td><a href="/editWebsite/{{.ID}}" class="btn btn-warning" role="button">Edit</a> <a href="/deleteWebsite/{{.ID}}" class="btn btn-danger" role="button" onclick="return confirm('Are you sure you want to delete this website?')">Delete</a></td>
+      </tr>
+{{ end }}
+    </tbody>
+  </table>
+</div>
+{{ end }}
+
+
+
+{{ template "footer.html" .}}

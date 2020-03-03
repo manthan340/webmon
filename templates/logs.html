@@ -1,0 +1,41 @@
+
+{{ template "header.html" .}}
+
+<div class="row">
+  <h2 class="pull-left">Log Details</h2>
+  <h2 class="pull-left" style="margin-left: 20px;"> <a href="/website" class="btn btn-default"> &lt;Back </a></h2>
+</div>
+<div class="row">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Response Time (in seconds)</th>
+        <th>HTTP Code</th>
+        <th>Alert?</th>
+        <th>Alert Reason</th>
+        <th>Log Time</th>
+      </tr>
+    </thead>
+    <tbody>
+  {{range .logs }}
+      <tr>
+        <td>{{.ResponseTime}}</td>
+        <td>{{.HttpStatusCode}}</td>
+        <td>
+          {{ if eq .AlertStatus true }}
+            <button type="button" class="btn btn-sm btn-danger">Alert</button>
+          {{ else }}
+            <button type="button" class="btn btn-sm btn-success">All ok</button>
+          {{ end }}
+        </td>
+        <td>{{.AlertReason}}</td>
+        <td>{{.CreatedAt}}</td>
+      </tr>
+  {{ end }}
+    </tbody>
+  </table>
+</div>
+
+
+
+{{ template "footer.html" .}}
