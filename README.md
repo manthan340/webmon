@@ -23,7 +23,7 @@ $ github.com/robfig/cron
 ```
 8. To report Cron logs, following package is being used.
 ```sh
-go get github.com/sirupsen/logrus
+$ go get github.com/sirupsen/logrus
 ```
 9. Need to create blank database.
 10. Connect the database with code using proper mysql credentials and database name.
