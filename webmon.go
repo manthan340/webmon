@@ -34,7 +34,7 @@ type MonitorLog struct {
 	Website 			Website
 	ResponseTime 		float32 	`json:"response_time"`
 	HttpStatusCode 		int 		`json:"http_status_code"`
-	HttpResponse 		string		`gorm:"type:text"`
+	HttpResponse 		string		`gorm:"type:longtext"`
 	AlertStatus			bool 		`json:"alert_status"`
 	AlertReason			string 		`json:"alert_reason"`
 }
