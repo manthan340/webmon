@@ -1,10 +1,10 @@
 # webmon
 A POC for website monitoring application
 
-## Requirements
+## Setup Instructions
 1. The first need is to have a system with [Go](https://golang.org/dl) installed.
 2. Install [mysql](https://dev.mysql.com/doc/) database server.
-3. Setup the codebase to the system.
+3. Clone the repository.
 4. Install Gin package
 ```sh
 $ go get -u github.com/gin-gonic/gin
