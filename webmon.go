@@ -22,7 +22,7 @@ type Website struct {
 	gorm.Model
 	//ID 					int 		`json:"id"`
 	ReadableName 		string		`json:"readable_name"`
-	Url 				string 		`json:"url"`
+	Url 				string 		`gorm:"type:text"`
 	MonitorDuration 	int			`json:"monitor_duration"`
 	HttpStatusCheck 	int 		`json:"http_status_check"`
 	HttpResponseContains string		`json:"http_response_contains"`
@@ -34,7 +34,7 @@ type MonitorLog struct {
 	Website 			Website
 	ResponseTime 		float32 	`json:"response_time"`
 	HttpStatusCode 		int 		`json:"http_status_code"`
-	HttpResponse 		string		`json:"http_response"`
+	HttpResponse 		string		`gorm:"type:text"`
 	AlertStatus			bool 		`json:"alert_status"`
 	AlertReason			string 		`json:"alert_reason"`
 }
@@ -42,7 +42,7 @@ type MonitorLog struct {
 func init() {
 	//open a db connection
 	var err error
-	db, err = gorm.Open("mysql", "root:Oneclick1@@tcp(127.0.0.1:3306)/webmon?parseTime=true")
+	db, err = gorm.Open("mysql", "xxxx:xxxxxxx@tcp(localhost:3306)/webmon?parseTime=true")
 	if err != nil {
 		panic("failed to connect database")
 	}
